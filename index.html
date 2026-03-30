@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biao Wang - AI Algorithm Expert</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --accent-dark: #2980b9;
+            --text: #333;
+            --text-light: #666;
+            --text-lighter: #999;
+            --bg: #ffffff;
+            --bg-alt: #f8f9fa;
+            --border: #e9ecef;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--bg);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 0.3s;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .nav-brand {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Language Toggle */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: var(--bg);
+            flex-shrink: 0;
+        }
+
+        .lang-toggle .lang-opt {
+            padding: 5px 12px;
+            color: var(--text-light);
+            transition: all 0.25s;
+            user-select: none;
+            line-height: 1;
+        }
+
+        .lang-toggle .lang-opt.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .lang-toggle .lang-opt:not(.active):hover {
+            background: var(--bg-alt);
+            color: var(--accent);
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .hero-content {
+            display: block;
+        }
+
+        .hero-avatar {
+            float: left;
+            margin-right: 36px;
+            margin-bottom: 16px;
+        }
+
+        .hero-avatar img {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-info {
+        }
+
+        .hero-info h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-info .name-cn {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.4rem;
+            color: var(--text-light);
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .hero-info .title {
+            font-size: 1.05rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .hero-contact-line {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .hero-contact-line i {
+            color: var(--accent);
+            margin-right: 4px;
+        }
+
+        .hero-contact-line a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .hero-contact-line a:hover {
+            color: var(--accent);
+        }
+
+        .hero-info .bio {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 48px 0;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 32px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .section-divider {
+            width: 60px;
+            border: none;
+            border-top: 3px solid var(--accent);
+            margin: 0 auto;
+            border-radius: 2px;
+            opacity: 0.5;
+        }
+
+        /* Research Interests */
+        .research-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .research-tag {
+            padding: 8px 18px;
+            background: linear-gradient(135deg, #ebf5fb, #d6eaf8);
+            color: var(--accent-dark);
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        /* News */
+        .news-list {
+            list-style: none;
+        }
+
+        .news-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 16px;
+            font-size: 0.93rem;
+        }
+
+        .news-list li:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            flex-shrink: 0;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            min-width: 90px;
+        }
+
+        .news-text {
+            color: var(--text-light);
+        }
+
+        .news-text strong {
+            color: var(--text);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 1px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        .badge-a {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .badge-b {
+            background: #e67e22;
+            color: #fff;
+        }
+
+        .badge-new {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        /* Experience */
+        .exp-item {
+            display: flex;
+            gap: 24px;
+            padding: 28px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .exp-item:last-child {
+            border-bottom: none;
+        }
+
+        .exp-timeline {
+            flex-shrink: 0;
+            width: 140px;
+            text-align: left;
+        }
+
+        .exp-period {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .exp-content {
+            flex: 1;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .exp-company {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .exp-role {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .exp-dept {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .exp-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .exp-desc p {
+            margin-bottom: 8px;
+        }
+
+        .exp-highlight {
+            margin-top: 12px;
+        }
+
+        .exp-highlight-item {
+            padding: 10px 0;
+        }
+
+        .exp-highlight-item strong {
+            color: var(--text);
+        }
+
+        /* Publications */
+        .pub-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pub-item:last-child {
+            border-bottom: none;
+        }
+
+        .pub-index {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .pub-content {
+            flex: 1;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            line-height: 1.5;
+        }
+
+        .pub-title a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .pub-title a:hover {
+            color: var(--accent);
+        }
+
+        .pub-authors {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            line-height: 1.6;
+        }
+
+        .pub-authors .me {
+            font-weight: 600;
+            color: var(--accent-dark);
+        }
+
+        .pub-venue {
+            font-size: 0.85rem;
+            color: var(--text-lighter);
+        }
+
+        .pub-venue .venue-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .pub-links {
+            margin-top: 6px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .pub-link {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 2px 10px;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .pub-link:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Education */
+        .edu-item {
+            display: flex;
+            gap: 24px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .edu-item:last-child {
+            border-bottom: none;
+        }
+
+        .edu-period {
+            flex-shrink: 0;
+            width: 140px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .edu-content h3 {
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .edu-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .edu-advisor {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .edu-advisor a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .edu-advisor a:hover {
+            text-decoration: underline;
+        }
+
+        /* Awards */
+        .award-group {
+            margin-bottom: 28px;
+        }
+
+        .award-group h3 {
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .award-list {
+            list-style: none;
+        }
+
+        .award-list li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .award-list li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-top: 8px;
+        }
+
+        .award-list li strong {
+            color: var(--text);
+        }
+
+        /* Patents */
+        .patent-summary {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            padding: 20px 24px;
+            background: var(--bg-alt);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-lighter);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 36px;
+            right: 36px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background 0.2s;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-dark);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-avatar {
+                float: none;
+                display: flex;
+                justify-content: center;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .hero-links {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(255,255,255,0.98);
+                padding: 20px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-right {
+                gap: 10px;
+            }
+
+            .lang-toggle .lang-opt {
+                padding: 4px 9px;
+                font-size: 0.78rem;
+            }
+
+            .exp-item,
+            .edu-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .exp-timeline,
+            .edu-period {
+                text-align: left;
+                width: auto;
+            }
+
+            .news-list li {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .hero-avatar img {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px;
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgba(52,152,219,0.2);
+        }
+
+        /* About highlights */
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .highlight-card {
+            display: block;
+            padding: 20px;
+            background: var(--bg-alt);
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .highlight-card .label {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-brand">Biao Wang</a>
+        <div class="nav-right">
+            <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="active" data-i18n="nav_about">About</a></li>
+                <li><a href="#news" data-i18n="nav_news">News</a></li>
+                <li><a href="#publications" data-i18n="nav_publications">Publications</a></li>
+                <li><a href="#education" data-i18n="nav_education">Education</a></li>
+            </ul>
+            <div class="lang-toggle" id="langToggle">
+                <span class="lang-opt active" data-lang="en">EN</span>
+                <span class="lang-opt" data-lang="zh">中文</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="about">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-avatar">
+                <img src="images/profile_400x400.jpg" alt="Biao Wang">
+            </div>
+            <div class="hero-info">
+                <h1>Biao Wang <span class="name-cn">王标</span></h1>
+                <div class="hero-contact-line">
+                    <span><i class="fas fa-envelope"></i> wangbiao.me@qq.com</span>
+                    <span><a href="https://scholar.google.com/citations?user=W7XDZ8gAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a></span>
+                </div>
+                <div class="title" data-i18n="hero_title">Principal Researcher @ Tencent Hunyuan</div>
+                <p class="bio" data-i18n-html="hero_bio1">
+                    I am a Principal Researcher at <strong>Tencent TEG / Hunyuan Multimodal Model Department</strong>, focusing on Agentic RL, video multimodal understanding post-training, and AIGC. Previously, I worked at <strong>Alibaba / Alimama</strong>, <strong>NetEase Youdao</strong>, and <strong>SenseTime</strong>. My research interests span multimodal understanding, AIGC, multi-agent systems, and computational advertising.
+                </p>
+                <p class="bio" data-i18n-html="hero_bio2">
+                    I received my M.S. in Computer Software and Theory from the <strong>Institute of Computing Technology, Chinese Academy of Sciences (ICT, CAS)</strong>, advised by <a href="https://www.zhanjianfeng.org/cn/cn.html" target="_blank" style="color:var(--accent)">Prof. Jianfeng Zhan</a>, and my B.Eng. in Software Engineering from <strong>Nankai University</strong>.
+                </p>
+            </div>
+        </div>
+
+        <!-- Research Interests -->
+        <div style="margin-top: 36px;">
+            <h3 style="font-family:'Crimson Pro',serif; font-size:1.2rem; color:var(--primary); margin-bottom:14px;" data-i18n="research_title">Research Interests</h3>
+            <div class="research-tags">
+                <span class="research-tag" data-i18n="tag_mm">Multimodal Understanding</span>
+                <span class="research-tag" data-i18n="tag_aigc">AIGC</span>
+                <span class="research-tag" data-i18n="tag_agent">Agentic RL & Multi-Agent Systems</span>
+                <span class="research-tag" data-i18n="tag_ad">Computational Advertising</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- News Section -->
+<section id="news">
+    <div class="container">
+        <h2 class="section-title" data-i18n="sec_news">News</h2>
+        <ul class="news-list">
+            <li>
+                <span class="news-date">Mar. 2026</span>
+                <span class="news-text" data-i18n-html="news_1">One paper on audio-visual reasoning (<strong>OmniVideo-R1</strong>) accepted by <strong>ICML 2026</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Sep. 2025</span>
+                <span class="news-text" data-i18n-html="news_2">One paper on video captioning for text-to-video generation (<strong>VC4VG</strong>) accepted by <strong>EMNLP 2025</strong> Main Conference 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Jul. 2024</span>
+                <span class="news-text" data-i18n-html="news_4">One paper on multi-modal advertising representations accepted by <strong>CIKM 2024</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">May 2024</span>
+                <span class="news-text" data-i18n-html="news_5">One paper on synchronized video storytelling accepted by <strong>ACL 2024</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Jul. 2023</span>
+                <span class="news-text" data-i18n-html="news_7">One paper on video outpainting accepted by <strong>ACM Multimedia 2023</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Jan. 2023</span>
+                <span class="news-text" data-i18n-html="news_9">One paper on video object segmentation accepted by <strong>AAAI 2023</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Jul. 2022</span>
+                <span class="news-text" data-i18n-html="news_13">Two papers on image animation and motion transfer accepted by <strong>ECCV 2022</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Jul. 2022</span>
+                <span class="news-text" data-i18n-html="news_12">One paper on temporal action detection accepted by <strong>ACM Multimedia 2022</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Mar. 2022</span>
+                <span class="news-text" data-i18n-html="news_10">Two papers on motion transfer and video highlight detection accepted by <strong>CVPR 2022</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Jul. 2021</span>
+                <span class="news-text" data-i18n-html="news_14">One paper on image animation in e-commerce accepted by <strong>ACM Multimedia 2021</strong> 👏</span>
+            </li>
+            <li>
+                <span class="news-date">Jan. 2021</span>
+                <span class="news-text" data-i18n-html="news_15">One paper on AI benchmarking accepted by <strong>IEEE ISPASS 2021</strong> 👏</span>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- Publications -->
+<section id="publications">
+    <div class="container">
+        <h2 class="section-title" data-i18n="sec_publications">Publications</h2>
+
+        <!-- Conference Papers -->
+        <h3 style="font-family:'Crimson Pro',serif; font-size:1.3rem; color:var(--primary); margin-bottom:20px;" data-i18n="pub_conf_title">Conference Papers</h3>
+
+        <div class="pub-item">
+            <div class="pub-index">1</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2602.05847" target="_blank">OmniVideo-R1: Reinforcing Audio-visual Reasoning with Query Intention and Modality Attention</a></div>
+                <div class="pub-authors">Zhangquan Chen, Jiale Tao, Ruihuang Li, Yihao Hu, Ruitao Chen, Zhantao Yang, Xinlei Yu, Haodong Jing, Manyuan Zhang, Shuai Shao, <span class="me">Biao Wang</span>, Qinglin Lu, Ruqi Huang</div>
+                <div class="pub-venue"><span class="venue-name">ICML 2026</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2602.05847" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">2</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2510.24134" target="_blank">VC4VG: A Video Captioning Framework and Hierarchical Benchmark for Enhancing Text-to-Video Generation</a></div>
+                <div class="pub-authors">Yang Du, Zhuoran Lin, Kaiqiang Song, <span class="me">Biao Wang</span>, Zhicheng Zheng, Tiezheng Ge, Bo Zheng, Qin Jin</div>
+                <div class="pub-venue"><span class="venue-name">EMNLP 2025</span> Main Conference</div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2510.24134" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">3</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2407.19467" target="_blank">Enhancing Taobao Display Advertising with Multi-Modal Representations: Challenges, Approaches and Insights</a></div>
+                <div class="pub-authors">Feifan Yang*, Xiangrong Sheng*, Litong Gong*, <span class="me">Biao Wang*</span>, Zhangming Chan, Yujing Zhang, Yueyao Cheng, Yong-Nan Zhu, Tiezheng Ge, Han Zhu, Yuning Jiang, Jian Xu, Bo Zheng</div>
+                <div class="pub-venue"><span class="venue-name">CIKM 2024</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2407.19467" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">4</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2405.14040" target="_blank">Synchronized Video Storytelling: Generating Video Narrations with Structured Storyline</a></div>
+                <div class="pub-authors">Dingyi Yang, Chunru Zhan, Ziheng Wang, <span class="me">Biao Wang</span>, Tiezheng Ge, Bo Zheng, Qin Jin</div>
+                <div class="pub-venue"><span class="venue-name">ACL 2024</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2405.14040" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">5</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2309.02119" target="_blank">Hierarchical Masked 3D Diffusion Model for Video Outpainting</a></div>
+                <div class="pub-authors">Fanda Fan, Chaoxu Guo, Litong Gong, <span class="me">Biao Wang</span>, Tiezheng Ge, Yuning Jiang, Chunjie Luo, Jianfeng Zhan</div>
+                <div class="pub-venue"><span class="venue-name">ACM Multimedia 2023</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2309.02119" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">6</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2212.02871" target="_blank">Video Object of Interest Segmentation</a></div>
+                <div class="pub-authors">Siyuan Zhou, Chunru Zhan, <span class="me">Biao Wang</span>, Tiezheng Ge, Yuning Jiang, Li Niu</div>
+                <div class="pub-venue"><span class="venue-name">AAAI 2023</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2212.02871" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">7</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2204.05018" target="_blank">Structure-Aware Motion Transfer with Deformable Anchor Model</a></div>
+                <div class="pub-authors">Jiale Tao, <span class="me">Biao Wang</span>, Borun Xu, Tiezheng Ge, Yuning Jiang, Wen Li, Lixin Duan</div>
+                <div class="pub-venue"><span class="venue-name">CVPR 2022</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2204.05018" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">8</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2204.04615" target="_blank">Learning Pixel-Level Distinctions for Video Highlight Detection</a></div>
+                <div class="pub-authors">Fanyue Wei, <span class="me">Biao Wang</span>, Tiezheng Ge, Yuning Jiang, Wen Li, Lixin Duan</div>
+                <div class="pub-venue"><span class="venue-name">CVPR 2022</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2204.04615" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">9</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2204.11695" target="_blank">Estimation of Reliable Proposal Quality for Temporal Action Detection</a></div>
+                <div class="pub-authors">Junshan Hu, Chaoxu Guo, Liansheng Zhuang, <span class="me">Biao Wang</span>, Tiezheng Ge, Yuning Jiang, Houqiang Li</div>
+                <div class="pub-venue"><span class="venue-name">ACM Multimedia 2022</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2204.11695" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">10</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2209.14024" target="_blank">Motion Transformer for Unsupervised Image Animation</a></div>
+                <div class="pub-authors">Jiale Tao, <span class="me">Biao Wang</span>, Tiezheng Ge, Yuning Jiang, Wen Li, Lixin Duan</div>
+                <div class="pub-venue"><span class="venue-name">ECCV 2022</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2209.14024" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">11</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2209.14529" target="_blank">Motion and Appearance Adaptation for Cross-Domain Motion Transfer</a></div>
+                <div class="pub-authors">Borun Xu, <span class="me">Biao Wang</span>, Jinhong Deng, Jiale Tao, Tiezheng Ge, Yuning Jiang, Wen Li, Lixin Duan</div>
+                <div class="pub-venue"><span class="venue-name">ECCV 2022</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2209.14529" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">12</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2112.13647" target="_blank">Move As You Like: Image Animation in E-Commerce Scenario</a></div>
+                <div class="pub-authors">Borun Xu, <span class="me">Biao Wang</span>, Jiale Tao, Tiezheng Ge, Yuning Jiang, Wen Li, Lixin Duan</div>
+                <div class="pub-venue"><span class="venue-name">ACM Multimedia 2021</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2112.13647" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">13</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2004.14690" target="_blank">AIBench Training: Balanced Industry-Standard AI Training Benchmarking</a></div>
+                <div class="pub-authors">Fei Tang, Wanling Gao, Jianfeng Zhan, Chuanxin Lan, Xu Wen, Lei Wang, Chunjie Luo, <span class="me">Biao Wang</span>, et al.</div>
+                <div class="pub-venue"><span class="venue-name">IEEE ISPASS 2021</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2004.14690" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <!-- Pre-prints -->
+        <h3 style="font-family:'Crimson Pro',serif; font-size:1.3rem; color:var(--primary); margin-top:40px; margin-bottom:20px;" data-i18n="pub_preprint_title">Pre-prints</h3>
+
+        <div class="pub-item">
+            <div class="pub-index">14</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2511.04317" target="_blank">RISE-T2V: Rephrasing and Injecting Semantics with LLM for Expansive Text-to-Video Generation</a></div>
+                <div class="pub-authors">Xiangjun Zhang, Litong Gong, <span class="me">Biao Wang</span>, Tiezheng Ge, Ming Zeng</div>
+                <div class="pub-venue"><span class="venue-name">arXiv</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2511.04317" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">15</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2403.01800" target="_blank">AtomoVideo: High Fidelity Image-to-Video Generation</a></div>
+                <div class="pub-authors">Litong Gong*, Yiran Zhu*, Weijie Li*, Xiaoyang Kang*, <span class="me">Biao Wang*</span>, Tiezheng Ge, Bo Zheng</div>
+                <div class="pub-venue"><span class="venue-name">arXiv</span></div>
+                <div class="pub-links">
+                    <a href="https://arxiv.org/abs/2403.01800" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a>
+                    <a href="https://atomo-video.github.io/" target="_blank" class="pub-link"><i class="fas fa-globe"></i> Project</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">16</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/2403.02827" target="_blank">Tuning-Free Noise Rectification for High Fidelity Image-to-Video Generation</a></div>
+                <div class="pub-authors">Weijie Li, Litong Gong, Yiran Zhu, Fanda Fan, <span class="me">Biao Wang</span>, Tiezheng Ge, Bo Zheng</div>
+                <div class="pub-venue"><span class="venue-name">arXiv</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2403.02827" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-index">17</div>
+            <div class="pub-content">
+                <div class="pub-title"><a href="https://arxiv.org/abs/1908.08998" target="_blank">AIBench: An Industry Standard Internet Service AI Benchmark Suite</a></div>
+                <div class="pub-authors">Wanling Gao, Fei Tang, Lei Wang, Jianfeng Zhan, Chunxin Lan, Chunjie Luo, <span class="me">Biao Wang</span>, et al.</div>
+                <div class="pub-venue"><span class="venue-name">arXiv</span></div>
+                <div class="pub-links"><a href="https://arxiv.org/abs/1908.08998" target="_blank" class="pub-link"><i class="fas fa-file-alt"></i> arXiv</a></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- Education -->
+<section id="education">
+    <div class="container">
+        <h2 class="section-title" data-i18n="sec_education">Education</h2>
+
+        <div class="edu-item">
+            <div class="edu-period">2013.09 - 2016.07</div>
+            <div class="edu-content">
+                <h3 data-i18n="edu_cas">Institute of Computing Technology, Chinese Academy of Sciences (ICT, CAS)</h3>
+                <p data-i18n="edu_cas_deg">M.S. in Computer Software and Theory</p>
+                <div class="edu-advisor" data-i18n-html="edu_cas_adv">Advisor: <a href="https://www.zhanjianfeng.org/cn/cn.html" target="_blank">Prof. Jianfeng Zhan</a></div>
+            </div>
+        </div>
+
+        <div class="edu-item">
+            <div class="edu-period">2009.09 - 2013.06</div>
+            <div class="edu-content">
+                <h3 data-i18n="edu_nku">Nankai University</h3>
+                <p data-i18n="edu_nku_deg">B.Eng. in Software Engineering</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p data-i18n="footer_copy">&copy; 2025 Biao Wang. Last updated March 2026.</p>
+        <p style="margin-top:6px;">
+            <a href="mailto:wangbiao.me@qq.com">wangbiao.me@qq.com</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0})" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+    // ==================== i18n Translation System ====================
+    const i18n = {
+        en: {
+            // Nav
+            nav_about: "About", nav_news: "News", nav_experience: "Experience",
+            nav_publications: "Publications", nav_education: "Education", nav_awards: "Awards",
+            // Hero
+            hero_title: "Principal Researcher @ Tencent Hunyuan",
+            hero_bio1: 'I am a Principal Researcher at <strong>Tencent TEG / Hunyuan Multimodal Model Department</strong>, focusing on Agentic RL, video multimodal understanding post-training, and AIGC. Previously, I worked at <strong>Alibaba / Alimama</strong>, <strong>NetEase Youdao</strong>, and <strong>SenseTime</strong>. My research interests span multimodal understanding, AIGC, multi-agent systems, and computational advertising.',
+            hero_bio2: 'I received my M.S. in Computer Software and Theory from the <strong>Institute of Computing Technology, Chinese Academy of Sciences (ICT, CAS)</strong>, advised by <a href="https://www.zhanjianfeng.org/cn/cn.html" target="_blank" style="color:var(--accent)">Prof. Jianfeng Zhan</a>, and my B.Eng. in Software Engineering from <strong>Nankai University</strong>.',
+            hero_contact: "Contact",
+            // Stats
+            stat_pub: "Publications (8 CCF-A)", stat_patent: "Patents Filed", stat_exp: "Top Tech Companies",
+            // Research
+            research_title: "Research Interests",
+            tag_mm: "Multimodal Understanding",
+            tag_aigc: "AIGC",
+            tag_agent: "Agentic RL & Multi-Agent Systems",
+            tag_ad: "Computational Advertising",
+            // News
+            sec_news: "News",
+            news_1: 'One paper on audio-visual reasoning (<strong>OmniVideo-R1</strong>) accepted by <strong>ICML 2026</strong> 👏',
+            news_2: 'One paper on video captioning for text-to-video generation (<strong>VC4VG</strong>) accepted by <strong>EMNLP 2025</strong> Main Conference 👏',
+            news_4: 'One paper on multi-modal advertising representations accepted by <strong>CIKM 2024</strong> 👏',
+            news_5: 'One paper on synchronized video storytelling accepted by <strong>ACL 2024</strong> 👏',
+            news_7: 'One paper on video outpainting accepted by <strong>ACM Multimedia 2023</strong> 👏',
+            news_9: 'One paper on video object segmentation accepted by <strong>AAAI 2023</strong> 👏',
+            news_10: 'Two papers on motion transfer and video highlight detection accepted by <strong>CVPR 2022</strong> 👏',
+            news_12: 'One paper on temporal action detection accepted by <strong>ACM Multimedia 2022</strong> 👏',
+            news_13: 'Two papers on image animation and motion transfer accepted by <strong>ECCV 2022</strong> 👏',
+            news_14: 'One paper on image animation in e-commerce accepted by <strong>ACM Multimedia 2021</strong> 👏',
+            news_15: 'One paper on AI benchmarking accepted by <strong>IEEE ISPASS 2021</strong> 👏',
+            // Experience section
+            sec_experience: "Work Experience",
+            exp_tc_company: "Tencent / TEG / Hunyuan", exp_tc_role: "Technical Expert",
+            exp_tc_dept: 'Multimodal Model Dept. / Applied Model Center',
+            exp_tc_desc: 'Responsible for <strong>Hunyuan Agentic RL</strong>, <strong>video multimodal understanding post-training</strong>, and <strong>Hunyuan &times; Ads AIGC</strong>. Driving Hunyuan\'s technical influence and business integration, achieving <strong>3&times; growth</strong> in Hunyuan capability adoption across Tencent Ads.',
+            exp_tc_h1: '<strong>Video Multimodal Understanding Post-Training:</strong> Designed the novel <em>MultiTrack SceneScript (MTSS)</em> paradigm for personalized video generation models (SORA2, Seedance2.0-like). Conducted SFT and RL post-training based on Qwen3-Omni, now deployed in video generation, ad creative, and viral content replication scenarios.',
+            exp_tc_h2: '<strong>AI Director:</strong> Built an Agentic RL-powered multi-agent system with Controller, Planner, Executor, and Critic roles for end-to-end personalized video creation from abstract intent to production-quality output. Deployed on Tencent Video AI Comics and WeChat Channels.',
+            exp_tc_h3: '<strong>Hunyuan &times; Ads:</strong> Significantly improved Hunyuan AIGC batch generation stability for e-commerce posters and image-to-video. Poster pass rate exceeds Seedream4.5 by <strong>25pt</strong>, I2V pass rate exceeds Wan2.2 by <strong>27pt</strong>, driving <strong>3&times;</strong> growth in ad revenue penetration.',
+            exp_ali_company: "Alibaba / Alimama", exp_ali_role: "Senior Algorithm Expert (TL)",
+            exp_ali_dept: 'Ad Technology Dept. / Intelligent Creative & AI Applications',
+            exp_ali_desc: 'Led video foundation models, intelligent creative generation, multimodal content understanding, and AI agent applications. Empowered hundreds of thousands of advertisers, growing Alimama\'s intelligent creative ad consumption from millions/day to <strong>hundreds of millions/day</strong>, contributing <strong>~50M RMB/day</strong> incremental revenue.',
+            exp_ali_h1: '<strong>Video Foundation Models:</strong> Built the core video generation team from scratch. Developed <a href="https://atomo-video.github.io/" target="_blank" style="color:var(--accent)">AtomoVideo</a> and <a href="https://mp.weixin.qq.com/s/BCZm9LNHfuni17s5-JbqwQ" target="_blank" style="color:var(--accent)">TbStars I2V 1.0</a> &amp; <a href="https://mp.weixin.qq.com/s/nP60BKquUcN1xAG38x7bhg" target="_blank" style="color:var(--accent)">TbStars I2V 2.0</a>, covering the full pipeline from data cleaning to inference optimization. Deployed on merchant platform "Qianniu" and advertiser platform "Wanxiang", serving 100K+ Taobao merchants.',
+            exp_ali_h2: '<strong>Short Video Production:</strong> Built Alimama\'s short video technology stack from scratch, including video highlight extraction, storyline generation, and music composition. Created "TbStars Short Video" and "Atongmu" products - a suite of 10+ video creation tools with 100K+ merchant DAU. Won Alimama Annual Innovation Award.',
+            exp_ali_h3: '<strong>Creative-Delivery Integration (ACB):</strong> Pioneered the integration of creative generation and ad delivery (<em>AlimamaCreativeBrain</em>), enabling end-to-end intelligent creative production aligned with delivery preferences. Achieved <strong>3&times; ROI improvement</strong> in platform productivity, covering hundreds of millions/day in ad consumption. Won Alimama Technology Award.',
+            exp_ali_h4: '<strong>Multimodal Content Understanding:</strong> Designed a three-stage "pretrain-finetune-objective alignment" framework with billion-scale training data for e-commerce multimodal representations. Applied across ad recall, ranking, and creative optimization, achieving <strong>Alimama\'s largest efficiency gain in two years</strong>. Won Alimama Technology Award twice.',
+            exp_ali_h5: '<strong>AI Agent "Xiao Wan":</strong> Built a marketing-focused multi-agent system with intent understanding, task planning, and tool invocation. Supports automated creative editing, data analysis, and diagnostic Q&A. Launched on Alimama\'s delivery platform.',
+            exp_ne_company: "NetEase / Youdao", exp_ne_role: "Senior Algorithm Engineer", exp_ne_dept: "AI Product Department",
+            exp_ne_h1: '<strong>OCR System:</strong> Built Youdao\'s OCR technology from scratch. Independently developed data pipelines, preprocessing, and text detection modules, achieving <strong>91% accuracy</strong> on natural scene text detection (2nd place on ICDAR text detection track). Deployed in Youdao Translator, Dictionary Pen, Dictionary App, and BBK Learning Tablet.',
+            exp_ne_h2: '<strong>TTS System:</strong> Led the first-generation TTS technology R&D at Youdao, independently building the full data-algorithm-system pipeline. Deployed in Youdao Dictionary and Translator products.',
+            exp_ne_h3: '<strong>Ad CTR Prediction:</strong> Developed multimodal CTR prediction models integrating deep image features with existing prediction frameworks.',
+            exp_st_company: "SenseTime", exp_st_role: "Research Intern", exp_st_dept: "Heterogeneous Parallel Computing Group",
+            exp_st_desc: 'Contributed to SenseTime\'s first-generation large-scale deep learning framework. Implemented data parallelism, model parallelism, and GPU memory optimization, achieving <strong>16&times;-37.5&times; training speedup</strong>.',
+            // Publications
+            sec_publications: "Publications",
+            pub_summary: '17 papers in total (8 CCF-A, 4 CCF-B, 1 CCF-C). Full list on <a href="https://scholar.google.com/citations?user=W7XDZ8gAAAAJ&hl=en" target="_blank" style="color:var(--accent)">Google Scholar</a>.',
+            pub_conf_title: "Conference Papers",
+            pub_preprint_title: "Pre-prints",
+            // Education
+            sec_education: "Education",
+            edu_cas: "Institute of Computing Technology, Chinese Academy of Sciences (ICT, CAS)",
+            edu_cas_deg: "M.S. in Computer Software and Theory",
+            edu_cas_adv: 'Advisor: <a href="https://www.zhanjianfeng.org/cn/cn.html" target="_blank">Prof. Jianfeng Zhan</a>',
+            edu_nku: "Nankai University", edu_nku_deg: "B.Eng. in Software Engineering",
+            // Awards
+            sec_awards: "Awards & Honors",
+            award_ali_title: "Alibaba / Alimama (2019 - 2025)",
+            award_ali_1: "Double 11 Shining Star Award",
+            award_ali_2: "Annual Technology Innovation Award", award_ali_2_note: "(1 awarded per year across Alimama)",
+            award_ali_3: "Annual Project Technology Award", award_ali_3_note: "(1 awarded per year across Alimama)",
+            award_ali_4: "Innovation Beauty Technology Award", award_ali_4_note: "(1 awarded per quarter)",
+            award_ali_5: "System Beauty Technology Award", award_ali_5_note: "(1 awarded per quarter)",
+            award_ne_title: "NetEase / Youdao (2016 - 2019)",
+            award_ne_1: "Annual Best Technical Breakthrough Award", award_ne_1_note: "(1 awarded per year)",
+            award_ne_2: "Annual Best Interviewer", award_ne_3: "Youdao Role Model Award",
+            patent_info: 'Cumulative <strong>15 patents</strong> filed, focusing on multimodal understanding, visual generation, and computer vision.',
+            patent_title: "Intellectual Property",
+            // Footer
+            footer_copy: "&copy; 2025 Biao Wang. Last updated March 2026.",
+        },
+        zh: {
+            // Nav
+            nav_about: "关于我", nav_news: "最新动态", nav_experience: "工作经历",
+            nav_publications: "学术论文", nav_education: "教育背景", nav_awards: "荣誉奖项",
+            // Hero
+            hero_title: "腾讯混元 Principal Researcher",
+            hero_bio1: '现任<strong>腾讯TEG / 混元多模态模型部</strong>Principal Researcher，研究方向包括Agentic RL、视频全模态理解后训练、AIGC等。此前曾就职于<strong>阿里巴巴 / 阿里妈妈</strong>、<strong>网易有道</strong>和<strong>商汤科技</strong>。研究兴趣涵盖多模态理解、AIGC、多智能体系统和计算广告。',
+            hero_bio2: '硕士毕业于<strong>中国科学院计算技术研究所</strong>（计算机软件与理论），导师为<a href="https://www.zhanjianfeng.org/cn/cn.html" target="_blank" style="color:var(--accent)">詹剑锋教授</a>；本科毕业于<strong>南开大学</strong>软件工程专业。',
+            hero_contact: "电话",
+            // Stats
+            stat_pub: "学术论文（8篇CCF-A）", stat_patent: "技术专利", stat_exp: "家头部科技公司",
+            // Research
+            research_title: "研究方向",
+            tag_mm: "多模态理解",
+            tag_aigc: "AIGC",
+            tag_agent: "Agentic RL与多智能体系统",
+            tag_ad: "计算广告",
+            // News
+            sec_news: "最新动态",
+            news_1: '一篇音视频推理论文（<strong>OmniVideo-R1</strong>）被<strong>ICML 2026</strong>接收 👏',
+            news_2: '一篇视频描述生成论文（<strong>VC4VG</strong>）被<strong>EMNLP 2025</strong>主会接收 👏',
+            news_4: '一篇多模态广告表征论文被<strong>CIKM 2024</strong>接收 👏',
+            news_5: '一篇同步视频叙事论文被<strong>ACL 2024</strong>接收 👏',
+            news_7: '一篇视频外扩论文被<strong>ACM Multimedia 2023</strong>接收 👏',
+            news_9: '一篇视频目标分割论文被<strong>AAAI 2023</strong>接收 👏',
+            news_10: '两篇运动迁移与视频高光检测论文被<strong>CVPR 2022</strong>接收 👏',
+            news_12: '一篇时序动作检测论文被<strong>ACM Multimedia 2022</strong>接收 👏',
+            news_13: '两篇图像动画与运动迁移论文被<strong>ECCV 2022</strong>接收 👏',
+            news_14: '一篇电商场景图像动画论文被<strong>ACM Multimedia 2021</strong>接收 👏',
+            news_15: '一篇AI基准测试论文被<strong>IEEE ISPASS 2021</strong>接收 👏',
+            // Experience
+            sec_experience: "工作经历",
+            exp_tc_company: "腾讯集团 / TEG / 混元", exp_tc_role: "技术专家",
+            exp_tc_dept: '混元多模态模型部 / 应用模型中心',
+            exp_tc_desc: '负责<strong>混元Agentic RL</strong>、<strong>视频全模态理解后训练</strong>、<strong>混元×广告AIGC</strong>等方向的团队建设、技术探索和应用落地，推动混元技术影响力建设与业务提效，混元能力在腾讯广告场景的<strong>消耗渗透提升3倍</strong>。',
+            exp_tc_h1: '<strong>视频全模态理解后训练：</strong>面向类SORA2、Seedance2.0等个性化视频生成模型的特点，设计全新的多轨制视频描述范式（<em>MultiTrack SceneScript, MTSS</em>），基于Qwen3-Omni进行SFT、RL等后训练优化。已落地视频生成基模、广告创意与风控、爆款复刻等应用场景。',
+            exp_tc_h2: '<strong>AI导演：</strong>以Agentic RL为核心技术路线，构建具备完整审美逻辑、自主推理规划、长程执行能力的"AI导演"Multi-Agents系统（Controller总导演、Planner分镜师、Executor摄影师、Critic美术指导），实现从抽象意图到短视频成片的端到端创作。上线至腾讯视频AI漫剧、微信视频号特效视频。',
+            exp_tc_h3: '<strong>混元×广告：</strong>针对广告业务对AIGC规模化的核心需求，通过优质数据构建与理解、SFT与RL、业务手法库建设等，显著提升混元AIGC批量生成稳定性。海报生成合格率超出Seedream4.5 <strong>25pt</strong>，图生视频合格率超出Wan2.2 <strong>27pt</strong>，规模化应用后业务消耗渗透提升<strong>3倍</strong>。',
+            exp_ali_company: "阿里巴巴 / 阿里妈妈", exp_ali_role: "高级算法专家（智能创作与AI应用TL）",
+            exp_ali_dept: '广告技术部 / 智能创作与AI应用',
+            exp_ali_desc: '负责视频基座模型、智能创作、多模态内容理解、Agent应用等方向，赋能近百万广告主。阿里妈妈智能创意业务消耗覆盖从百万/天提升至<strong>数亿/天</strong>，带动大盘增长近<strong>五千万/天</strong>。',
+            exp_ali_h1: '<strong>基座模型：</strong>从0到1搭建视频基模核心团队，建设淘宝星辰视频生成基座模型，包括数据清洗与理解、预训练、后训练、推理优化等全链路研发。先后推出<a href="https://atomo-video.github.io/" target="_blank" style="color:var(--accent)">AtomoVideo</a>、<a href="https://mp.weixin.qq.com/s/BCZm9LNHfuni17s5-JbqwQ" target="_blank" style="color:var(--accent)">淘宝星辰·图生视频1.0</a>和<a href="https://mp.weixin.qq.com/s/nP60BKquUcN1xAG38x7bhg" target="_blank" style="color:var(--accent)">淘宝星辰·图生视频2.0</a>，引起广泛关注，上线至商家平台"千牛"和广告主平台"万相营造"，服务超过十万淘天商家。',
+            exp_ali_h2: '<strong>短视频成片：</strong>从0到1建设阿里妈妈短视频技术体系，包括视频与直播高光剪辑、剧情与配乐生成等核心技术。打造"淘宝星辰·短视频"和"阿瞳木"视频创作产品，形成商家DAU超过十万的近10款视频制作工具集。荣获阿里妈妈年度创新大奖。',
+            exp_ali_h3: '<strong>制投一体（ACB）：</strong>以智能标题为切入点，完成创意制作与投放一体化的成功实践与推广（<em>AlimamaCreativeBrain</em>），包括商品基础数据建设、数据飞轮、可控生成、投放偏好对齐等核心算法模块。平台产能ROI提升<strong>3倍</strong>以上，广告消耗覆盖达到数亿/天。荣获阿里妈妈技术大奖。',
+            exp_ali_h4: '<strong>多模态内容理解：</strong>基于广告商品信息、用户行为、优化目标，设计"预训练-微调-目标对齐"三阶段训练，构建亿级别训练数据，优化电商场景多模态表征。广泛应用在广告召回、粗精排、创意制作与优选等核心环节，实现阿里妈妈推荐广告<strong>近两年最大幅度提效</strong>。两度荣获阿里妈妈技术大奖。',
+            exp_ali_h5: '<strong>AI小万：</strong>针对广告主核心经营需求，打造营销智能体"AI小万"。通过意图理解、任务规划、工具调用等技术实现Multi-Agents系统，支持自动创编、取数分析、诊断问答等核心功能，全量上线至阿里妈妈投放平台。',
+            exp_ne_company: "网易 / 有道", exp_ne_role: "资深算法工程师", exp_ne_dept: "人工智能产品部",
+            exp_ne_h1: '<strong>OCR技术与业务：</strong>参与网易有道OCR业务从0到1的研发工作，独立负责数据集构建、前处理、文字检测等OCR系统关键模块，实现自然场景文字检测准确率<strong>91%</strong>（ICDAR文字检测track第二名）。全量上线至有道翻译官、有道词典笔、有道词典、步步高学习机等公司内外多款明星产品。',
+            exp_ne_h2: '<strong>TTS技术：</strong>负责网易有道第一代TTS技术的探索和研发，独立负责数据、算法和系统的研发工作，上线至有道词典、有道翻译官等产品。',
+            exp_ne_h3: '<strong>广告CTR预估：</strong>负责多模态CTR预估模型研发，通过深度图像模型提取图片特征，加入已有CTR预估模型。',
+            exp_st_company: "商汤科技", exp_st_role: "研究实习生", exp_st_dept: "异构并行计算组",
+            exp_st_desc: '参与商汤第一代大规模深度学习框架研发，主要完成数据并行计算、模型并行计算、网络显存占用优化等工作，提升模型训练速度（<strong>16x~37.5x加速</strong>）。',
+            // Publications
+            sec_publications: "学术论文",
+            pub_summary: '累计发表17篇学术论文（8篇CCF-A、4篇CCF-B、1篇CCF-C）。完整列表见 <a href="https://scholar.google.com/citations?user=W7XDZ8gAAAAJ&hl=en" target="_blank" style="color:var(--accent)">Google Scholar</a>。',
+            pub_conf_title: "会议论文",
+            pub_preprint_title: "预印本",
+            // Education
+            sec_education: "教育背景",
+            edu_cas: "中国科学院计算技术研究所",
+            edu_cas_deg: "工学硕士 · 计算机软件与理论",
+            edu_cas_adv: '导师：<a href="https://www.zhanjianfeng.org/cn/cn.html" target="_blank">詹剑锋教授</a>',
+            edu_nku: "南开大学", edu_nku_deg: "工学学士 · 软件工程",
+            // Awards
+            sec_awards: "荣誉奖项",
+            award_ali_title: "阿里巴巴 / 阿里妈妈（2019 - 2025）",
+            award_ali_1: "双11闪亮星",
+            award_ali_2: "年度技术创新奖", award_ali_2_note: "（每年1个/阿里妈妈）",
+            award_ali_3: "年度项目技术大奖", award_ali_3_note: "（每年1个/阿里妈妈）",
+            award_ali_4: "创新之美技术奖", award_ali_4_note: "（每季度1个）",
+            award_ali_5: "系统之美技术奖", award_ali_5_note: "（每季度1个）",
+            award_ne_title: "网易 / 有道（2016 - 2019）",
+            award_ne_1: "年度最佳技术攻关奖", award_ne_1_note: "（每年1个）",
+            award_ne_2: "年度最佳面试官", award_ne_3: "有道标兵",
+            patent_info: '累计产出并申请<strong>15项</strong>技术专利，主要集中在多模态理解、视觉生成、计算机视觉等领域。',
+            patent_title: "知识产权",
+            // Footer
+            footer_copy: "&copy; 2025 王标. 最后更新于2026年3月。",
+        }
+    };
+
+    let currentLang = 'en';
+
+    function switchLang(lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+        const dict = i18n[lang];
+
+        // Update text content (data-i18n)
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key] !== undefined) el.textContent = dict[key];
+        });
+
+        // Update HTML content (data-i18n-html)
+        document.querySelectorAll('[data-i18n-html]').forEach(el => {
+            const key = el.getAttribute('data-i18n-html');
+            if (dict[key] !== undefined) el.innerHTML = dict[key];
+        });
+
+        // Update html lang attribute
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+        // Update toggle button active state
+        document.querySelectorAll('.lang-opt').forEach(opt => {
+            opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+        });
+
+        // Save preference
+        try { localStorage.setItem('lang', lang); } catch(e) {}
+    }
+
+    // Language toggle click handler
+    document.getElementById('langToggle').addEventListener('click', (e) => {
+        const opt = e.target.closest('.lang-opt');
+        if (opt) switchLang(opt.getAttribute('data-lang'));
+    });
+
+    // Restore saved language preference
+    try {
+        const saved = localStorage.getItem('lang');
+        if (saved && saved !== currentLang) switchLang(saved);
+    } catch(e) {}
+
+    // ==================== Navigation ====================
+    function toggleNav() {
+        document.getElementById('navLinks').classList.toggle('show');
+    }
+
+    // Navbar scroll effect & back to top
+    const btnTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 10) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+        // Back to top visibility
+        btnTop.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    // Active nav link highlighting
+    const sections = document.querySelectorAll('section[id]');
+    const navLinksAll = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 80;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinksAll.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // Close mobile nav on link click
+    navLinksAll.forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('navLinks').classList.remove('show');
+        });
+    });
+</script>
+
+</body>
+</html>
